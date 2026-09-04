@@ -1,0 +1,7 @@
+target/
+docs/report_render/
+*.class
+*.log
+src/main/resources/database.local.properties
+.idea/
+*.iml

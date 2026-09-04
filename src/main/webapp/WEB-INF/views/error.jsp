@@ -1,0 +1,3 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" isErrorPage="true" %>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>System Error | Sunrise Dental</title><link rel="stylesheet" href="<%= request.getContextPath() %>/assets/app.css"></head>
+<body class="error-page"><main class="card empty-state"><span>!</span><h1>Something went wrong</h1><p>The request could not be completed. Please return to the dashboard and try again.</p><a class="button button--primary" href="<%= request.getContextPath() %>/dashboard">Return to dashboard</a></main></body></html>

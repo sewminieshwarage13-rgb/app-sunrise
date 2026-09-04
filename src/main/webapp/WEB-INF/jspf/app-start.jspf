@@ -1,0 +1,57 @@
+<%@ page pageEncoding="UTF-8" import="lk.sunrise.dental.web.WebUtil" %>
+<%
+    String contextPath = request.getContextPath();
+    String requestPath = request.getRequestURI();
+    String currentUser = (String) session.getAttribute("user");
+    String pageTitle = (String) request.getAttribute("pageTitle");
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= WebUtil.escapeHtml(pageTitle) %> | Sunrise Dental Clinic</title>
+    <link rel="stylesheet" href="<%= contextPath %>/assets/app.css">
+</head>
+<body class="app-shell">
+<aside class="sidebar">
+    <a class="brand brand--light" href="<%= contextPath %>/dashboard" aria-label="Sunrise Dental dashboard">
+        <span class="brand__mark">S+</span>
+        <span><strong>Sunrise</strong><small>Dental Clinic</small></span>
+    </a>
+    <nav class="side-nav" aria-label="Main navigation">
+        <a class="<%= requestPath.endsWith("/dashboard") ? "active" : "" %>" href="<%= contextPath %>/dashboard">
+            <span class="nav-icon">⌂</span> Dashboard
+        </a>
+        <a class="<%= requestPath.endsWith("/appointments/new") ? "active" : "" %>" href="<%= contextPath %>/appointments/new">
+            <span class="nav-icon">＋</span> New appointment
+        </a>
+        <a class="<%= requestPath.endsWith("/appointments/search") ? "active" : "" %>" href="<%= contextPath %>/appointments/search">
+            <span class="nav-icon">⌕</span> Find appointment
+        </a>
+        <a class="<%= requestPath.endsWith("/bill") ? "active" : "" %>" href="<%= contextPath %>/bill">
+            <span class="nav-icon">₨</span> Billing
+        </a>
+        <a class="<%= requestPath.endsWith("/help") ? "active" : "" %>" href="<%= contextPath %>/help">
+            <span class="nav-icon">?</span> Help guide
+        </a>
+    </nav>
+    <div class="sidebar__footer">
+        <div class="staff-card">
+            <span class="avatar"><%= currentUser == null ? "A" : currentUser.substring(0, 1).toUpperCase() %></span>
+            <span><strong><%= WebUtil.escapeHtml(currentUser) %></strong><small>Authorized staff</small></span>
+        </div>
+        <form action="<%= contextPath %>/logout" method="post">
+            <button class="button button--exit" type="submit">Exit system safely</button>
+        </form>
+    </div>
+</aside>
+<main class="main-content">
+    <header class="topbar">
+        <div>
+            <p class="eyebrow">Sunrise Dental Clinic • Colombo</p>
+            <h1><%= WebUtil.escapeHtml(pageTitle) %></h1>
+        </div>
+        <div class="secure-badge"><span></span> Secure staff session</div>
+    </header>
+    <div class="page-content">

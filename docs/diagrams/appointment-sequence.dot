@@ -1,0 +1,24 @@
+digraph Sequence {
+  graph [rankdir=TB, bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.45", fontname="Arial"];
+  node [shape=plain, fontname="Arial", fontsize=10];
+  edge [fontname="Arial", fontsize=9];
+
+  header [label=<
+    <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="20"><TR><TD><B>Clinic Staff</B></TD><TD><B>Appointment Form</B></TD><TD><B>AppointmentServlet</B></TD><TD><B>Validator</B></TD><TD><B>AppointmentStore</B></TD><TD><B>MySQL</B></TD></TR></TABLE>
+  >];
+  lifelines [label=<
+    <TABLE BORDER="0" CELLBORDER="0" CELLSPACING="20"><TR><TD WIDTH="92">&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;</TD><TD WIDTH="108">&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;</TD><TD WIDTH="118">&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;</TD><TD WIDTH="80">&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;</TD><TD WIDTH="108">&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;</TD><TD WIDTH="70">&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;<BR/>&#124;</TD></TR></TABLE>
+  >];
+  steps [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="7">
+      <TR><TD ALIGN="LEFT"><B>1</B> Staff submits complete patient, date/time and visit method.</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>2</B> Form posts data to AppointmentServlet.</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>3</B> Servlet creates Appointment and requests validation.</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>4</B> Validator checks required fields, future/opening time, treatment and double booking.</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>5</B> On success, Store executes parameterised INSERT through JDBC.</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>6</B> MySQL commits the row and returns confirmation.</TD></TR>
+      <TR><TD ALIGN="LEFT"><B>7</B> Servlet redirects to the saved appointment record; otherwise the form displays field errors.</TD></TR>
+    </TABLE>
+  >];
+  header -> lifelines [style=invis]; lifelines -> steps [style=invis];
+}

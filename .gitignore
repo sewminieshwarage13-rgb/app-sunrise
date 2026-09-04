@@ -3,5 +3,6 @@ docs/report_render/
 *.class
 *.log
 src/main/resources/database.local.properties
+docs/screenshots/image027.png
 .idea/
 *.iml

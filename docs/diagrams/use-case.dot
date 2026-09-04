@@ -1,0 +1,30 @@
+digraph UseCase {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.42", ranksep="0.85", fontname="Arial"];
+  node [fontname="Arial", fontsize=12];
+  edge [fontname="Arial", fontsize=10];
+
+  staff [shape=plaintext, label="<<actor>>\nClinic Staff", fontsize=14];
+  api [shape=plaintext, label="<<actor>>\nAuthorised API Client", fontsize=14];
+  subgraph cluster_system {
+    label="Sunrise Dental Clinic Management System";
+    style="rounded"; penwidth=1.8; margin=22;
+    login [shape=ellipse, label="Log in"];
+    register [shape=ellipse, label="Register appointment"];
+    validate [shape=ellipse, label="Validate appointment details"];
+    search [shape=ellipse, label="Search appointment"];
+    view [shape=ellipse, label="View appointment details"];
+    bill [shape=ellipse, label="Calculate and print bill"];
+    help [shape=ellipse, label="Read help instructions"];
+    logout [shape=ellipse, label="Log out safely"];
+    webservice [shape=ellipse, label="Retrieve appointment via\nREST web service"];
+  }
+
+  {rank=same; login; register; search; bill; help; logout;}
+  {rank=same; validate; view; webservice;}
+  staff -> login; staff -> register; staff -> search; staff -> bill; staff -> help; staff -> logout;
+  api -> webservice;
+  register -> validate [style=dashed, arrowhead=vee, label="<<include>>"];
+  search -> view [style=dashed, arrowhead=vee, label="<<include>>"];
+  bill -> search [style=dashed, arrowhead=vee, label="<<include>>"];
+  webservice -> view [style=dashed, arrowhead=vee, label="<<include>>"];
+}

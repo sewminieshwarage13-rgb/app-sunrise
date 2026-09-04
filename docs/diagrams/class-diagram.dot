@@ -1,0 +1,49 @@
+digraph ClassDiagram {
+  graph [rankdir=TB, bgcolor="white", pad="0.2", nodesep="0.3", ranksep="0.55", fontname="Arial"];
+  node [shape=plain, fontname="Arial", fontsize=10];
+  edge [fontname="Arial", fontsize=9, color="#333333"];
+
+  appointment [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>Appointment</B></TD></TR><TR><TD ALIGN="LEFT">- appointmentNumber: String<BR/>- patientName: String<BR/>- address: String<BR/>- contactNumber: String<BR/>- dentistName: String<BR/>- treatmentType: String<BR/>- appointmentMode: AppointmentMode<BR/>- appointmentDate: LocalDate<BR/>- appointmentTime: LocalTime</TD></TR><TR><TD ALIGN="LEFT">+ getters()</TD></TR></TABLE>
+  >];
+  mode [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>&lt;&lt;enumeration&gt;&gt;<BR/>AppointmentMode</B></TD></TR><TR><TD ALIGN="LEFT">PHYSICAL<BR/>ONLINE</TD></TR><TR><TD ALIGN="LEFT">+ fromValue(value)</TD></TR></TABLE>
+  >];
+  servlet [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>AppointmentServlet</B></TD></TR><TR><TD ALIGN="LEFT">+ doGet()<BR/>+ doPost()</TD></TR></TABLE>
+  >];
+  api [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>AppointmentApiServlet</B></TD></TR><TR><TD ALIGN="LEFT">+ doGet()</TD></TR></TABLE>
+  >];
+  validation [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>AppointmentValidator</B></TD></TR><TR><TD ALIGN="LEFT">+ validate(appointment)<BR/>+ validateAvailability(...)</TD></TR></TABLE>
+  >];
+  store [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>AppointmentStore</B></TD></TR><TR><TD ALIGN="LEFT">+ save(appointment)<BR/>+ findByNumber(number)<BR/>+ findAll()<BR/>+ nextAppointmentNumber()</TD></TR></TABLE>
+  >];
+  billing [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>BillingService</B></TD></TR><TR><TD ALIGN="LEFT">+ calculate(appointment)</TD></TR></TABLE>
+  >];
+  treatment [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>TreatmentCatalog</B></TD></TR><TR><TD ALIGN="LEFT">+ getTreatmentCost(type)<BR/>+ getConsultationFee()</TD></TR></TABLE>
+  >];
+  auth [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>AuthService</B></TD></TR><TR><TD ALIGN="LEFT">+ authenticate(username, password)</TD></TR></TABLE>
+  >];
+  db [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5"><TR><TD BGCOLOR="#E6E6E6"><B>DatabaseConfiguration</B></TD></TR><TR><TD ALIGN="LEFT">+ getConnection()</TD></TR></TABLE>
+  >];
+  mysql [shape=cylinder, label="MySQL\nappointments table"];
+
+  appointment -> mode [arrowhead=diamond, label=" 1"];
+  servlet -> validation [label="uses"];
+  servlet -> store [label="uses"];
+  servlet -> billing [label="uses"];
+  api -> store [label="uses"];
+  validation -> appointment [label="checks"];
+  billing -> treatment [label="uses"];
+  store -> appointment [label="persists"];
+  store -> db [label="opens"];
+  db -> mysql [label="JDBC"];
+  auth -> db [style=dashed, label="configuration"];
+}

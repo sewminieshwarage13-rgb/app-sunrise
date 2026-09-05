@@ -106,3 +106,6 @@ For example, `GET /sunrise/api/appointments/APT-1001` returns the patient, appoi
 | Orthodontic Consultation | 2,500.00 | 4,000.00 |
 
 See [docs/TEST_CASES.md](docs/TEST_CASES.md) for the test cases, [docs/SCREENSHOTS.md](docs/SCREENSHOTS.md) for the complete visual evidence, and [docs/GIT_GITHUB_WORKFLOW.md](docs/GIT_GITHUB_WORKFLOW.md) for the version-control workflow and public GitHub publication steps.
+## Continuous Integration
+
+GitHub Actions is used to automatically build the Maven project whenever changes are pushed to the master branch. The CI workflow uses JDK 17 and Maven to verify that the project can be built successfully.
